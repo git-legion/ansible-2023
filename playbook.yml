@@ -1,0 +1,22 @@
+---
+ - name: installing web-server            # name of play 
+   hosts: manage1                         # name of host group name
+   become: true                           # defining become
+   tasks:                                 
+        - name: installing web_server     # name of 1st task
+          apt:                            # apt module to install any package
+             name: nginx                  # name of package to install
+             state: present               # state is present for package
+
+        - name: copy webdata              # name of 2nd task
+          copy:                           # copy module to copy data from src to dest
+            src: index.html               # source of file to copy
+            dest: /var/www/html           # destination of file to copy
+         
+        - name: start service             # name of 3rd task
+          service:                        # using service module to start the service 
+            name: nginx                   # name of the service to start
+            state: started                # state of the service
+
+
+

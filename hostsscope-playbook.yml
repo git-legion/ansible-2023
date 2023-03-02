@@ -1,0 +1,43 @@
+# in hostsscope variable value of the variable defined inside a hosts/inventory file
+#eg.
+# hosts file
+#[manage1]
+#nodeServer1 ansible_host=10.128.0.22 ansible_user=sanjaykumaratal18 ansible_private_key_file=/home/ansibleControlNode/.ssh/nod2key package=nginx service=sshd
+#[manage2]
+#nodeServer2 ansible_host=10.128.0.23 ansible_user=sanjaykumaratal18 ansible_private_key_file=/home/ansibleControlNode/.ssh/managekey package=mysql-server
+#
+# here {{package}} and {{service}} is a variable and 'nginx' and sshd is the value
+# command to execute hostsscope-playbook.yml 'ansible-playbook hostsscope-playbook.yml'
+
+#it will install nginx on manage1 and install mysql-server on manage2
+
+---
+ - name: installing web-server            # name of 1st play 
+   hosts: manage1                         # name of 1st host group name
+   become: true                           # defining become
+   tasks:                                 
+        - name: installing {{package}} web_server     # name of 1st task
+          apt:                            # apt module to install any package
+             name: "{{package}}"                  # name of package to install
+             state: present               # state is present for package
+
+        - name: copy webdata              # name of 2nd task
+          copy:                           # copy module to copy data from src to dest
+            src: index.html               # source of file to copy
+            dest: /var/www/html           # destination of file to copy
+         
+        - name: start {{service}} service             # name of 3rd task
+          service:                        # using service module to start the service 
+            name: "{{service}}"                   # name of the service to start
+            state: started                # state of the service
+
+
+
+ - name: setup database                   # name of 2nd play
+   hosts: manage2                         # name of 2nd host group name
+   become: true                           # defining become
+   tasks:                                 # defining tasks to perform
+       - name: installing {{package}}          # name of the task 
+         package:                         # we can also use package module to install any package
+            name: "{{package}}"            # name of package to install
+            state: present                # state for package

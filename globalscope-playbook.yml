@@ -1,0 +1,25 @@
+# in global scope variable value of the variable defined inside command (eg. ansible-playbook playscope-playbook.yml -e package=nginx -e service=nginx -k)
+# here {{package}} is a variable and 'nginx' is the value
+
+---
+ - name: installing web-server            # name of play 
+   hosts: manage1                         # name of host group name
+   become: true                           # defining become
+   tasks:                                 
+        - name: installing {{package}} web_server     # name of 1st task
+          apt:                                       # apt module to install any package
+             name: "{{package}}"                     # name of package to install
+             state: present               # state is present for package
+
+        - name: copy webdata              # name of 2nd task
+          copy:                           # copy module to copy data from src to dest
+            src: index.html               # source of file to copy
+            dest: /var/www/html           # destination of file to copy
+         
+        - name: start {{service}} service             # name of 3rd task
+          service:                        # using service module to start the service 
+            name: "{{service}}"                   # name of the service to start
+            state: started                # state of the service
+
+
+
