@@ -1,0 +1,16 @@
+---
+ - hosts: manage1
+   become: true
+   tasks:
+    - name: create users on remote server using loop
+      user:
+        name: "{{ item.name }}"
+        group: "{{ item.group }}"
+        password: "{{ item.password | password_hash('sha512') }}"
+      loop:
+        - name: sanjay
+          group: sanjaykumaratal18
+          password: MyPassword1
+        - name: legion
+          group: sanjaykumaratal18
+          password: MyPassword2

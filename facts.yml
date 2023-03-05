@@ -1,0 +1,8 @@
+---
+ - hosts: manage1
+   become: true
+   tasks:
+       - name: print facts from remote host
+         debug:
+           msg: manageNode IPv4 Address {{ansible_default_ipv4.address}} Gateway {{ansible_default_ipv4.gateway}} python major Version is {{ansible_python.version.major}} and version is {{ansible_python.version_info[0]}}. {{ansible_python.version_info[1]}}
+

@@ -1,0 +1,29 @@
+- hosts: manage1
+  become: true
+  tasks:
+    - name: copy files with same extension
+      copy:
+        src: "{{ item }}"
+        dest: /home/ec2-user/
+      with_items:
+        - "{{ query('fileglob', 'files/*.txt') }}"
+
+
+
+# copy: The name of the Ansible module used to copy files from the local machine to the remote host.
+
+# src: The source file or directory to be copied from the local machine to the remote host.
+
+# dest: The destination directory or file on the remote host to which the files will be copied.
+
+# with_items: A loop that will execute the task for each item in the list. In this example, the copy task will be executed for each file name listed in the with_items parameter.          
+#
+#
+# {{ query('fileglob', 'files/*.txt') }} is an Ansible expression that uses the query function to search for files in the files/ directory that match the pattern *.txt.
+#
+#
+# query is a built-in Ansible function that allows you to run queries against the local file system, environment variables, or other data sources.
+
+# fileglob is a query plugin that searches for files in the local file system that match a specified pattern.
+
+# 'files/*.txt' is the pattern to search for. It matches all files in the files directory with a .txt extension.

@@ -20,7 +20,7 @@
           apt:                            # apt module to install any package
              name: "{{package}}"                  # name of package to install
              state: present               # state is present for package
-
+         
         - name: copy webdata              # name of 2nd task
           copy:                           # copy module to copy data from src to dest
             src: index.html               # source of file to copy

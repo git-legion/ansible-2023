@@ -1,0 +1,23 @@
+---
+- hosts: manage1
+  become: true
+  tasks:
+    - name: copy a file         # task name
+      copy:                     # copy module to copy files from src to dest
+         src: files/a.txt       # src of files to copy
+         dest: /home/ec2-user/  # dest of files to copy
+
+
+
+    - name: copy a file         # task name
+      copy:                     # copy module to copy files from src to dest
+         src: files/b.txt       # src of files to copy
+         dest: /home/ec2-user/  # dest of files to copy
+
+
+    - name: copy a file         # task name
+      copy:                     # copy module to copy files from src to dest
+         src: files/c.txt       # src of files to copy
+         dest: /home/ec2-user/  # dest of files to copy
+           
+     

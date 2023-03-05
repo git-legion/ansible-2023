@@ -1,0 +1,26 @@
+---
+ - hosts: manage1
+   become: true
+   tasks:
+     - name: create users on remote server using loop
+       user:
+         name: "{{item.name}}"
+         group: "{{item.group}}"  
+       loop:
+         - name: sanjay
+           group: sanjaykumaratal18
+         - name: legion
+           group: sanjaykumaratal18
+
+
+
+# user: This is the name of the module being used to create users.
+# name: "{{item.name}}": This is the name of the user to be created. The item.name variable is used here, which will be explained below.
+# group: "{{item.group}}": This is the group to which the user will belong. The item.group variable is used here, which will be explained below.
+# loop: This is a loop construct that allows the same task to be executed multiple times with different inputs. In this case, the user task will be executed once for each item in the list.
+# - name: sanjay: This is the first item in the list of users to be created. The name key specifies the name of the user and the group key specifies the name of the group to which the user will belong.
+# - name: legion: This is the second item in the list of users to be created.
+
+# When this playbook is run, Ansible will create two new users (sanjay and legion) on the manage1 host and add them to the groups sanjaykumaratal18. The item variable is used to iterate over the list of users, so the user task is effectively run twice, once for each user in the list.
+
+# Note that if the group specified does not already exist on the host, Ansible will create the group as well. In this case, the sanjaykumaratal18 group must already exist on the host for this playbook to run successfully.

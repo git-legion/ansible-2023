@@ -1,0 +1,36 @@
+#what is register in ansible -- 
+#Register is used to capture the output of any task and store it in a variable. This variable can later be used along with print, loops, conditionals etc. When you run a task in Ansible, the entire output of the task will not be printed to stdout(Terminal)
+
+#what is debug module -- 
+#This module prints statements during execution and can be useful for debugging variables or expressions without necessarily halting the playbook.
+
+
+---
+ - name: installing web-server            # name of play 
+   hosts: manage1                         # name of host group name
+   vars:                                  # defining variables
+     - package: nginx                     # defining value of the variables
+     - service: nginx  
+   become: true                           # defining become
+   tasks:                                 
+        - name: installing {{package}} web_server     # name of 1st task
+          apt:                                       # apt module to install any package
+             name: "{{package}}"                     # name of package to install
+             state: present               # state is present for package
+          register: output                # defining register to capture output of any task
+        - name: print register variable info
+          debug:                               # defining debug module print statement capture by register
+            var: output    
+
+        - name: copy webdata              # name of 2nd task
+          copy:                           # copy module to copy data from src to dest
+            src: index.html               # source of file to copy
+            dest: /var/www/html           # destination of file to copy
+         
+        - name: start {{service}} service             # name of 3rd task
+          service:                        # using service module to start the service 
+            name: "{{service}}"                   # name of the service to start
+            state: started                # state of the service
+
+
+
