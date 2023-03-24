@@ -1,0 +1,11 @@
+---
+- hosts: manage1
+  become: true
+  tasks:
+    - name: install nginx if running Ubuntu
+      vars:
+        package: nginx
+      apt:
+        name: "{{ pack }}"
+        state: present
+      when: pack is defined   # it will prevent the task to fail even the variable is not defined

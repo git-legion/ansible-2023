@@ -1,0 +1,12 @@
+---
+ - hosts: manage1
+   become: true  
+   tasks:
+     - name: Check memory size
+       apt:
+         name: nginx
+         state: present  
+       when: ansible_memtotal_mb >= 900  # specifying condition
+         
+# if the the total memory size of host is >=900 MB the task will perform the task otherwise it skips the task
+

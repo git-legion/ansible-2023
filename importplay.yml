@@ -1,0 +1,24 @@
+---
+- hosts: manage1
+  become: true
+  tasks:
+    - name: copy a file       
+      copy:                   
+         src: files/a.txt       
+         dest: /home/ec2-user/  
+
+
+
+    - name: copy a file         
+      copy:                   
+         src: files/b.txt       
+         dest: /home/ec2-user/  
+
+
+    - name: copy a file         
+      copy:                     
+         src: files/c.txt     
+         dest: /home/ec2-user/  
+           
+- name: importing another playbook
+  import_playbook: loopcopy.yml         # mention another playbook name here

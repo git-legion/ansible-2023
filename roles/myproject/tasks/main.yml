@@ -1,0 +1,8 @@
+---
+# tasks file for myproject
+ - name: copy a file to test handler
+   copy:
+     src: ../files/facts.txt
+     dest: /home/sanjaykumaratal18/
+   notify: my_handler
+

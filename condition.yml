@@ -1,0 +1,9 @@
+---
+ - hosts: manage1
+   become: true  
+   tasks:
+     - name: install nginx if running Ubuntu
+       apt:
+         name: nginx
+         state: present
+       when: ansible_distribution == 'RedHat'   # specifying condition that if ansible_distribution is 'Ubuntu' than install nginx on host

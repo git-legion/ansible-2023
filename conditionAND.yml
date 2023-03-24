@@ -1,0 +1,13 @@
+---
+- hosts: manage1
+  become: true
+  tasks:
+    - name: install nginx if running Ubuntu
+      vars:
+        pack: nginx
+      apt:
+        name: "{{ pack }}"
+        state: present
+      when: pack is defined and ansible_distribution == "Ubuntu"  
+        
+# in AND condition it execute the task if both condtions are true if one of the condition is false than it will skips the task 

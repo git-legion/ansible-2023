@@ -1,0 +1,10 @@
+---
+- name: Example playbook with serial
+  hosts: all
+  gather_facts: false
+  serial: 1
+
+  tasks:
+    - name: Run command on all hosts
+      command: echo "Hello from {{ inventory_hostname }}"
+

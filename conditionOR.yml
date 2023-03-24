@@ -1,0 +1,13 @@
+---
+- hosts: manage1
+  become: true
+  tasks:
+    - name: install nginx if running Ubuntu
+      vars:
+        pack: nginx
+      apt:
+        name: "{{ pack }}"
+        state: present
+      when: pack is defined or ansible_distribution == "untu"  # here we mismatch the value From Ubuntu to untu
+
+# in OR condition it execute the task even if one of the condition is false, the task will not skips untill both conditions are false

@@ -1,0 +1,9 @@
+---
+- name: Example playbook with forks
+  hosts: all
+  gather_facts: False  
+  tasks:
+    - name: Run command on all hosts
+      command: ls
+      forks: 10
+

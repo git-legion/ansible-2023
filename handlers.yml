@@ -1,0 +1,27 @@
+---
+- name: Update Nginx configuration and restart
+  hosts: manage1
+  become: true
+  tasks:
+    - name: install nginx webserver
+      apt:
+          name: nginx
+          state: present
+    - name: start the nginx service
+      service:
+          name: nginx
+          state: started
+    - name: Copy index file
+      copy:
+        src: index.html
+        dest: /var/www/html/index.html
+      notify: Restart nginx   # mention notify so that whenever changes are made into index.html the nginx service needs to restart
+
+  handlers:                   # defining handlers
+    - name: Restart nginx     # notifying the handler
+      service:
+        name: nginx           # name of the service
+        state: restarted      # task need to perform on service (nginx)
+
+
+

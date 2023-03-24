@@ -1,0 +1,8 @@
+---
+ - hosts: manage1
+   become: true
+   tasks:
+      - name: testing jinja2 template
+        template:                   # using template module
+              src: jinja.j2         # src path to jinja.j2 file 
+              dest: /home/sanjaykumaratal18/   # dest path to copy jinja.j2 file

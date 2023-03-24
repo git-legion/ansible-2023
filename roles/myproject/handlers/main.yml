@@ -1,0 +1,6 @@
+---
+# handlers file for myproject
+- name: my_handler    
+  debug:
+      msg: handler is working fine    
+
